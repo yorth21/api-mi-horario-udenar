@@ -1,0 +1,53 @@
+# Dependencias de Node.js
+node_modules/
+
+# Archivos de registro y errores generados por Node.js
+npm-debug.log
+yarn-error.log
+
+# Archivos de registro
+logs
+*.log
+
+# Directorios y archivos de dependencias
+.jest
+.pnpm
+.npm
+.pnpm-debug.log
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.pnp.js
+
+# Archivos de configuración de Visual Studio Code
+.vscode/
+
+# Directorio de configuración de WebStorm
+.idea/
+
+# Archivos generados por la plataforma Windows
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Archivos de intercambio de Windows
+Thumbs.db
+Desktop.ini
+
+# Archivos generados por macOS
+.DS_Store
+
+# Archivos generados por la plataforma Linux
+*.swp
+
+# Archivos de configuración
+.env
+web.config
+
+# Dependencias locales (puede variar según la configuración de tu proyecto)
+# /local-dependency/
+
+# Carpeta de compilación de TypeScript
+dist/
