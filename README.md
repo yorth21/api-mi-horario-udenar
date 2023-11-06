@@ -30,7 +30,7 @@ cd api-mi-horario-udenar
     ```bash
     npm install
     ```
-	
+
 4. Ejecutar la API sin **nodemon**:
 ```bash
 npm start
