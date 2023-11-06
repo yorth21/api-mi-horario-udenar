@@ -49,6 +49,7 @@ export class AuthController {
 
       const $info = $('section.content > div:first > div')
       const infoText = $info.text()
+      if (!infoText) return sendError(res, 404, 'Error al extraer la informacion del pdf')
 
       const dataMapped = AuthController.mapInfo(infoText)
 

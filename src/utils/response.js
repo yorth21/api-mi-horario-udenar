@@ -6,7 +6,7 @@ export function sendSuccess (res, code, message, data) {
   })
 }
 
-export function sendError (res, code, message, details) {
+export function sendError (res, code, message, details = null) {
   return res.status(code).json({
     success: false,
     error: {
