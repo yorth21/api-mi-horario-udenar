@@ -21,24 +21,24 @@ Para instalar y ejecutar esta API sigue estos pasos:
 1. Asegúrate de tener la version de **Node.js** correspondiente instalada en tu sistema. Si no lo tienes, puedes descargarlo desde [el sitio web de Node.js](https://nodejs.org/).
 
 2. Clona este repositorio en tu máquina local:
-```bash
-git clone https://github.com/yorth21/api-mi-horario-udenar.git
-cd api-mi-horario-udenar
-```
+	```bash
+	git clone https://github.com/yorth21/api-mi-horario-udenar.git
+	cd api-mi-horario-udenar
+	```
 
 3. Instalar las dependencias:
-    ```bash
-    npm install
-    ```
+	```bash
+	npm install
+	```
 
 4. Ejecutar la API sin **nodemon**:
-```bash
-npm start
-```
-Si la quieres ejecutar con **nodemon**
-```bash
-npm run dev
-```
+	```bash
+	npm start
+	```
+	Si la quieres ejecutar con **nodemon**
+	```bash
+	npm run dev
+	```
 
 ## Endpoints
 ### Codigo reporte actual
