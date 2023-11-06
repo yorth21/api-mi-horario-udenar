@@ -3,5 +3,5 @@ import { HorarioController } from '../controllers/horario.js'
 
 export const horarioRouter = Router()
 
-horarioRouter.get('/', HorarioController.getHorario)
-horarioRouter.post('/', HorarioController.getCodReporte)
+horarioRouter.post('/', HorarioController.getHorario)
+horarioRouter.post('/codreporte', HorarioController.getCodReporte)

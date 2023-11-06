@@ -10,7 +10,7 @@ const apiHorario = axios.create({
 })
 export class HorarioController {
   static async getHorario (req, res) {
-    const { codAlumno, codReporte } = req.query
+    const { codAlumno, codReporte } = req.body
 
     const body = new FormData()
     body.append('cod_alumno', codAlumno)
@@ -51,9 +51,9 @@ export class HorarioController {
 
       const $select = $('#reporte')
       const primeraOpcion = $select.find('option').eq(0).attr('value')
-      if (!primeraOpcion) return sendError(res, 404, 'No se encontró el código de reporte')
+      if (!primeraOpcion) return sendError(res, 404, 'No se encontró el código de reporte', null)
 
-      return sendSuccess(res, 200, 'Código de reporte obtenido', primeraOpcion)
+      return sendSuccess(res, 200, 'Código de reporte obtenido', { codAlumno, codReporte: primeraOpcion })
     } catch (error) {
       return sendError(res, 500, 'Error inesperado', error)
     }

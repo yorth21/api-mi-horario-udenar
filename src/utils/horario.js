@@ -3,6 +3,16 @@ const regexFilaTabla = /(Lunes|Martes|Miercoles|Jueves|Viernes|Sabado|Domingo):[
 const regexHorarioAsignatura = /(Lunes|Martes|Miercoles|Jueves|Viernes|Sabado|Domingo):\s*[\n]*\s*[^]*?\s*[\n]*\s*\([^]*?\)/g
 const regexNombreAsignatura = /^[A-Z]{2}.*(-\s|-)[0-9]+$/
 
+const diaACodigo = {
+  lunes: 'LUN',
+  martes: 'MAR',
+  miercoles: 'MIE', // Sin tilde
+  jueves: 'JUE',
+  viernes: 'VIE',
+  sabado: 'SAB', // Sin tilde
+  domingo: 'DOM'
+}
+
 function mapHorarioAsignatura (horarioAsignatura) {
   // Eliminar saltos de linea
   const horarioAsignaturaSinSalto = horarioAsignatura.map(linea => {
@@ -28,24 +38,34 @@ function mapHorarioAsignatura (horarioAsignatura) {
       }
     }
 
+    const diaSinTildes = dia.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    const codigoDeDia = diaACodigo[diaSinTildes.toLowerCase()]
+
     if (!horariosAgrupados[dia]) {
       horariosAgrupados[dia] = {
-        horaInicioNum,
-        horaFinNum,
+        dia: dia.toLowerCase(),
+        codDia: codigoDeDia,
+        horaInicio: horaInicioNum,
+        horaFin: horaFinNum,
         ubicacion
       }
     } else {
       const existente = horariosAgrupados[dia]
-      if (horaInicioNum < existente.horaInicioNum) {
-        existente.horaInicioNum = horaInicioNum
+      if (horaInicioNum < existente.horaInicio) {
+        existente.horaInicio = horaInicioNum
       }
-      if (horaFinNum > existente.horaFinNum) {
-        existente.horaFinNum = horaFinNum
+      if (horaFinNum > existente.horaFin) {
+        existente.horaFin = horaFinNum
       }
     }
   })
 
-  return horariosAgrupados
+  const horariosAgrupadosArray = []
+  for (const key in horariosAgrupados) {
+    horariosAgrupadosArray.push(horariosAgrupados[key])
+  }
+
+  return horariosAgrupadosArray
 }
 
 export function scrapingPdfText (text) {
