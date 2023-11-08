@@ -25,10 +25,10 @@ export class HorarioController {
       })
 
       const pdf = await pdfParse(data)
-      if (!pdf.text) return sendError(res, 404, 'Error al extraer la informacion del pdf')
-      const resultadoMapeado = scrapingPdfText(pdf.text)
+      if (pdf.text.trim() === '') return sendError(res, 404, 'No existe el horario')
+      const result = scrapingPdfText(pdf.text)
 
-      return sendSuccess(res, 200, 'Horario obtenido', resultadoMapeado)
+      return sendSuccess(res, 200, 'Horario obtenido', result)
     } catch (error) {
       return sendError(res, 500, 'Error inesperado', error)
     }
@@ -36,6 +36,8 @@ export class HorarioController {
 
   static async getCodReporte (req, res) {
     const { codAlumno } = req.body
+
+    if (!codAlumno) return sendError(res, 400, 'No se envió el código del alumno', null)
 
     const body = new FormData()
     body.append('theInput', codAlumno)
@@ -53,7 +55,11 @@ export class HorarioController {
       const primeraOpcion = $select.find('option').eq(0).attr('value')
       if (!primeraOpcion) return sendError(res, 404, 'No se encontró el código de reporte', null)
 
-      return sendSuccess(res, 200, 'Código de reporte obtenido', { codAlumno, codReporte: primeraOpcion })
+      const info = $('.has-feedback:first > label > b').text()
+      const nombre = info.split('Semestre')[0].trim()
+      if (!nombre) return sendError(res, 404, 'No se encontró el estudiante', null)
+
+      return sendSuccess(res, 200, 'Código de reporte obtenido', { codAlumno, codReporte: primeraOpcion, nombre })
     } catch (error) {
       return sendError(res, 500, 'Error inesperado', error)
     }

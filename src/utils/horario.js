@@ -24,7 +24,8 @@ function mapHorarioAsignatura (horarioAsignatura) {
   horarioAsignaturaSinSalto.forEach(horario => {
     const [dia, horas] = horario.split(':')
     const [horaInicio, horaFin] = horas.match(/\d+ - \d+/)[0].split(' - ')
-    const ubicacion = horas.match(/\((.*?)\)/)[1]
+    let ubicacion = horas.match(/\((.*?)\)/)[1]
+    ubicacion = ubicacion.replace(/\(|\)/g, '')
 
     let horaInicioNum = Number(horaInicio)
     let horaFinNum = Number(horaFin)
@@ -68,13 +69,23 @@ function mapHorarioAsignatura (horarioAsignatura) {
   return horariosAgrupadosArray
 }
 
+function nombreAlumno (text) {
+  const nombre = text.trim().split('\n')[1]
+  return nombre.split(/\d/)[0]
+}
+
 export function scrapingPdfText (text) {
+  const nombre = nombreAlumno(text)
   text = text.split('ASIGNATURAS CANCELADAS')[0]
   text = text.split('FECHA')[1]
 
   const filasTabla = text.match(regexFilaTabla)
 
-  const resultadoMapeado = []
+  const result = {
+    nombre,
+    asignaturas: []
+  }
+  const asignaturasHorario = []
   for (const fila of filasTabla) {
     const horarioAsignatura = fila.match(regexHorarioAsignatura)
     const horarioAsignaturaMap = mapHorarioAsignatura(horarioAsignatura)
@@ -118,8 +129,10 @@ export function scrapingPdfText (text) {
       horario: horarioAsignaturaMap,
       horarioSinMap: horarioAsignatura
     }
-    resultadoMapeado.push(datosAsignatura)
+    asignaturasHorario.push(datosAsignatura)
   }
 
-  return resultadoMapeado
+  result.asignaturas = asignaturasHorario
+
+  return result
 }
