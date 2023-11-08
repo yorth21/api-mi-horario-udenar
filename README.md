@@ -55,7 +55,8 @@ POST	/api/horario/codreporte
 "message": "Código de reporte obtenido",
 "data": {
         "codAlumno": "123456789",
-        "codReporte": "123"
+        "codReporte": "123",
+	"nombre": "NOMBRE ALUMNO"
     }
 
 404
@@ -85,7 +86,25 @@ POST	/api/horario
 200
 "success": true,
 "message": "Horario obtenido",
-"data": data
+"data": {
+	"nombre": "NOMBRE ALUMNO",
+	"asignaturs: [
+		{
+			"nombre": "NOMBRE ASIGNATUR",
+			"categoria": "Flexibilidad",
+                	"tipo": "Teórica",
+                	"horario": [
+				{
+					"dia": "miercoles",
+                        		"codDia": "MIE",
+                        		"horaInicio": 11,
+                        		"horaFin": 13,
+                        		"ubicacion": "A205-BLOQUE 6 INGENIERIA"
+				}
+			]
+		}
+	]
+}
 
 404
 "success": false,
