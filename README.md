@@ -2,6 +2,9 @@
 
 Esta API ha sido desarrollada con el propósito de realizar web scraping en la aplicación web de matrículas de la Universidad de Nariño. Su principal función es extraer información detallada sobre el horario de clases de los estudiantes y presentarla de manera accesible y directa a los usuarios finales.
 
+#### Link de la API desplegada para que la pruebes
+https://api-mi-horario-udenar.up.railway.app/api
+
 ## Contenido
 
 1. [Requisitos](#requisitos)
