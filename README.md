@@ -2,9 +2,6 @@
 
 Esta API ha sido desarrollada con el propósito de realizar web scraping en la aplicación web de matrículas de la Universidad de Nariño. Su principal función es extraer información detallada sobre el horario de clases de los estudiantes y presentarla de manera accesible y directa a los usuarios finales.
 
-#### Link de la API desplegada para que la pruebes
-https://api-mi-horario-udenar.up.railway.app/api
-
 ## Contenido
 
 1. [Requisitos](#requisitos)
@@ -47,79 +44,91 @@ Para instalar y ejecutar esta API sigue estos pasos:
 ### Codigo reporte actual
 
 ```
-POST	/api/horario/codreporte
+POST	/api/v1/horario/asignaturas
 
 {
-	"codAlumno": "123456789"
+	"codAlumno": 123456789
 }
 
 200
 "success": true,
 "message": "Código de reporte obtenido",
 "data": {
-        "codAlumno": "123456789",
-        "codReporte": "123",
-	"nombre": "NOMBRE ALUMNO"
-    }
-
-404
-"success": false,
-"error": {
-	"message": "No se encontró el código de reporte",
-	"details": null
+	"codAlumno": "123456789",
+	"codReporte": "123"
 }
 
-500
+codigo ok: 200
+"success": true,
+"message": "Mensaje",
+"data": {
+	"nombreAlumno": "Nombre",
+	"asignaturas": [
+		{
+			"nombre": "METODOS NUMERICOS",
+			"categoria": "Flexibilidad",
+			"tipo": "Teórica",
+			"horario": [
+				{
+					"dia": "lunes",
+					"codDia": "LUN",
+					"horaInicio": 11,
+					"horaFin": 13,
+					"ubicacion": "A407-BLOQUE TECNOLOGICO"
+				},
+				{
+					"dia": "miercoles",
+					"codDia": "MIE",
+					"horaInicio": 11,
+					"horaFin": 13,
+					"ubicacion": "A409-BLOQUE TECNOLOGICO"
+				}
+			]
+		}
+		// ....
+	]
+}
+
+codigo error: 
 "success": false,
 "error": {
-	"message": "Error inesperado",
-	"details": "error del sistema"
+	"message": "Descripcion corta del error",
+	"details": "Detalles del error"
 }
 ```
 
 ### Informacion del horario
 ```
-POST	/api/horario
+POST	/api/v1/horario/asignaturasDia
 
 {
-	"codAlumno": "123456789",
-	"codReporte": "123"
+	"codAlumno": 123456789
 }
 
-200
+codigo ok: 200
 "success": true,
-"message": "Horario obtenido",
+"message": "Mensaje",
 "data": {
-	"nombre": "NOMBRE ALUMNO",
-	"asignaturs: [
+	"nombreAlumno": "Nombre",
+	"asignaturas": [
 		{
-			"nombre": "NOMBRE ASIGNATUR",
+			"dia": "lunes",
+			"codDia": "LUN",
+			"horaInicio": 11,
+			"horaFin": 13,
+			"ubicacion": "A407-BLOQUE TECNOLOGICO",
+			"nombre": "METODOS NUMERICOS",
 			"categoria": "Flexibilidad",
-                	"tipo": "Teórica",
-                	"horario": [
-				{
-					"dia": "miercoles",
-                        		"codDia": "MIE",
-                        		"horaInicio": 11,
-                        		"horaFin": 13,
-                        		"ubicacion": "A205-BLOQUE 6 INGENIERIA"
-				}
-			]
+			"tipo": "Teórica"
 		}
+		// .....
 	]
 }
 
-404
+codigo error: 
 "success": false,
 "error": {
-	"message": "Error al extraer la informacion del pdf",
-	"details": null
-}
-
-500
-"success": false,
-"error": {
-	"message": "Error inesperado",
-	"details": "error del sistema"
+	"message": "Descripcion corta del error",
+	"details": "Detalles del error"
 }
 ```
