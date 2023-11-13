@@ -44,60 +44,85 @@ Para instalar y ejecutar esta API sigue estos pasos:
 ### Codigo reporte actual
 
 ```
-POST	/api/horario/codreporte
+POST	/api/v1/horario/asignaturas
 
 {
-	"codAlumno": "123456789"
+	"codAlumno": 123456789
 }
 
 200
 "success": true,
 "message": "Código de reporte obtenido",
 "data": {
-        "codAlumno": "123456789",
-        "codReporte": "123"
-    }
-
-404
-"success": false,
-"error": {
-	"message": "No se encontró el código de reporte",
-	"details": null
+	"codAlumno": "123456789",
+	"codReporte": "123"
 }
 
-500
+codigo ok: 200
+"success": true,
+"message": "Mensaje",
+"data": "asignaturas": [
+	{
+		"nombre": "METODOS NUMERICOS",
+		"categoria": "Flexibilidad",
+		"tipo": "Teórica",
+		"horario": [
+			{
+				"dia": "lunes",
+				"codDia": "LUN",
+				"horaInicio": 11,
+				"horaFin": 13,
+				"ubicacion": "A407-BLOQUE TECNOLOGICO"
+			},
+			{
+				"dia": "miercoles",
+				"codDia": "MIE",
+				"horaInicio": 11,
+				"horaFin": 13,
+				"ubicacion": "A409-BLOQUE TECNOLOGICO"
+			}
+		]
+	}
+	// ....
+]
+
+codigo error: 
 "success": false,
 "error": {
-	"message": "Error inesperado",
-	"details": "error del sistema"
+	"message": "Descripcion corta del error",
+	"details": "Detalles del error"
 }
 ```
 
 ### Informacion del horario
 ```
-POST	/api/horario
+POST	/api/v1/horario/asignaturasDia
 
 {
-	"codAlumno": "123456789",
-	"codReporte": "123"
+	"codAlumno": 123456789
 }
 
-200
+codigo ok: 200
 "success": true,
-"message": "Horario obtenido",
-"data": data
+"message": "Mensaje",
+"data": "asignaturas": [
+	{
+		"dia": "lunes",
+		"codDia": "LUN",
+		"horaInicio": 11,
+		"horaFin": 13,
+		"ubicacion": "A407-BLOQUE TECNOLOGICO",
+		"nombre": "METODOS NUMERICOS",
+		"categoria": "Flexibilidad",
+		"tipo": "Teórica"
+	}
+	// .....
+]
 
-404
+codigo error: 
 "success": false,
 "error": {
-	"message": "Error al extraer la informacion del pdf",
-	"details": null
-}
-
-500
-"success": false,
-"error": {
-	"message": "Error inesperado",
-	"details": "error del sistema"
+	"message": "Descripcion corta del error",
+	"details": "Detalles del error"
 }
 ```

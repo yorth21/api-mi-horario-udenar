@@ -74,7 +74,7 @@ function nombreAlumno (text) {
   return nombre.split(/\d/)[0]
 }
 
-export function scrapingPdfText (text) {
+export function asignaturasScraping (text) {
   const nombre = nombreAlumno(text)
   text = text.split('ASIGNATURAS CANCELADAS')[0]
   text = text.split('FECHA')[1]
@@ -82,7 +82,7 @@ export function scrapingPdfText (text) {
   const filasTabla = text.match(regexFilaTabla)
 
   const result = {
-    nombre,
+    nombreAlumno: nombre,
     asignaturas: []
   }
   const asignaturasHorario = []
@@ -122,17 +122,34 @@ export function scrapingPdfText (text) {
     }
 
     const datosAsignatura = {
-      fullNombre: fullNombreMateria,
+      // fullNombre: fullNombreMateria,
       nombre: materia,
       categoria,
       tipo,
-      horario: horarioAsignaturaMap,
-      horarioSinMap: horarioAsignatura
+      horario: horarioAsignaturaMap
+      // horarioSinMap: horarioAsignatura
     }
     asignaturasHorario.push(datosAsignatura)
   }
 
   result.asignaturas = asignaturasHorario
 
+  return result
+}
+
+export function asignaturasDiaScraping (text) {
+  const asignaturas = asignaturasScraping(text)
+  const result = {
+    nombreAlumno: asignaturas.nombreAlumno,
+    asignaturas: []
+  }
+  for (const asignatura of asignaturas.asignaturas) {
+    for (const dia of asignatura.horario) {
+      dia.nombre = asignatura.nombre
+      dia.categoria = asignatura.categoria
+      dia.tipo = asignatura.tipo
+      result.asignaturas.push(dia)
+    }
+  }
   return result
 }
