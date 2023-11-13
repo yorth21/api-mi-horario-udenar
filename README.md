@@ -61,30 +61,33 @@ POST	/api/v1/horario/asignaturas
 codigo ok: 200
 "success": true,
 "message": "Mensaje",
-"data": "asignaturas": [
-	{
-		"nombre": "METODOS NUMERICOS",
-		"categoria": "Flexibilidad",
-		"tipo": "Teórica",
-		"horario": [
-			{
-				"dia": "lunes",
-				"codDia": "LUN",
-				"horaInicio": 11,
-				"horaFin": 13,
-				"ubicacion": "A407-BLOQUE TECNOLOGICO"
-			},
-			{
-				"dia": "miercoles",
-				"codDia": "MIE",
-				"horaInicio": 11,
-				"horaFin": 13,
-				"ubicacion": "A409-BLOQUE TECNOLOGICO"
-			}
-		]
-	}
-	// ....
-]
+"data": {
+	"nombreAlumno": "Nombre",
+	"asignaturas": [
+		{
+			"nombre": "METODOS NUMERICOS",
+			"categoria": "Flexibilidad",
+			"tipo": "Teórica",
+			"horario": [
+				{
+					"dia": "lunes",
+					"codDia": "LUN",
+					"horaInicio": 11,
+					"horaFin": 13,
+					"ubicacion": "A407-BLOQUE TECNOLOGICO"
+				},
+				{
+					"dia": "miercoles",
+					"codDia": "MIE",
+					"horaInicio": 11,
+					"horaFin": 13,
+					"ubicacion": "A409-BLOQUE TECNOLOGICO"
+				}
+			]
+		}
+		// ....
+	]
+}
 
 codigo error: 
 "success": false,
@@ -105,19 +108,22 @@ POST	/api/v1/horario/asignaturasDia
 codigo ok: 200
 "success": true,
 "message": "Mensaje",
-"data": "asignaturas": [
-	{
-		"dia": "lunes",
-		"codDia": "LUN",
-		"horaInicio": 11,
-		"horaFin": 13,
-		"ubicacion": "A407-BLOQUE TECNOLOGICO",
-		"nombre": "METODOS NUMERICOS",
-		"categoria": "Flexibilidad",
-		"tipo": "Teórica"
-	}
-	// .....
-]
+"data": {
+	"nombreAlumno": "Nombre",
+	"asignaturas": [
+		{
+			"dia": "lunes",
+			"codDia": "LUN",
+			"horaInicio": 11,
+			"horaFin": 13,
+			"ubicacion": "A407-BLOQUE TECNOLOGICO",
+			"nombre": "METODOS NUMERICOS",
+			"categoria": "Flexibilidad",
+			"tipo": "Teórica"
+		}
+		// .....
+	]
+}
 
 codigo error: 
 "success": false,
