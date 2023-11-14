@@ -26,6 +26,7 @@ export class HorarioController {
       if (!pdf) return sendError(res, 500, 'Error al obtener el horario')
       if (pdf.text.trim() === '') return sendError(res, 404, 'Horario no encontrado')
       const asignaturas = asignaturasScraping(pdf.text)
+      asignaturas.codAlumno = codAlumno
 
       return sendSuccess(res, 200, 'Horario obtenido', asignaturas)
     } catch (err) {
@@ -54,6 +55,7 @@ export class HorarioController {
       if (!pdf) return sendError(res, 500, 'Error al obtener el horario')
       if (pdf.text.trim() === '') return sendError(res, 404, 'Horario no encontrado')
       const asignaturas = asignaturasDiaScraping(pdf.text)
+      asignaturas.codAlumno = codAlumno
 
       return sendSuccess(res, 200, 'Horario obtenido', asignaturas)
     } catch (err) {
