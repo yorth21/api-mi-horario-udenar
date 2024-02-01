@@ -1,7 +1,7 @@
+import * as cheerio from 'cheerio'
 import { sendError, sendSuccess } from '../utils/response.js'
 import { pdfParse } from '../utils/pdfParse.cjs'
-import { asignaturasScraping, asignaturasDiaScraping } from '../utils/horario.js'
-import * as cheerio from 'cheerio'
+import { asignaturasScraping, diasScraping } from '../utils/horario.js'
 import { periodoModel } from '../models/periodoModel.js'
 import { validateCodAlumno } from '../schemas/alumnoSchema.js'
 import { reporteModel } from '../models/reporteModel.js'
@@ -28,16 +28,16 @@ export class HorarioController {
       const asignaturas = asignaturasScraping(pdf.text)
       asignaturas.codAlumno = codAlumno
 
-      return sendSuccess(res, 200, 'Horario obtenido', asignaturas)
+      return sendSuccess({ res, data: asignaturas })
     } catch (err) {
       if (err instanceof ConnectionError) {
-        return sendError(res, 500, 'Error de conexion')
+        return sendError({ res, message: 'Error al conectarse al servidor de la U' })
       }
-      return sendError(res, 500, 'Error inesperado')
+      return sendError({ res, message: 'Error interno en el servidor' })
     }
   }
 
-  static async horarioAsignaturasDia (req, res) {
+  static async horarioDias (req, res) {
     const { codAlumno } = req.body
     const { success } = validateCodAlumno(codAlumno)
     if (!success) return sendError(res, 400, 'Formato de codigo incorrecto')
@@ -54,15 +54,15 @@ export class HorarioController {
       const pdf = await pdfParse(resReporte)
       if (!pdf) return sendError(res, 500, 'Error al obtener el horario')
       if (pdf.text.trim() === '') return sendError(res, 404, 'Horario no encontrado')
-      const asignaturas = asignaturasDiaScraping(pdf.text)
+      const asignaturas = diasScraping(pdf.text)
       asignaturas.codAlumno = codAlumno
 
-      return sendSuccess(res, 200, 'Horario obtenido', asignaturas)
+      return sendSuccess({ res, data: asignaturas })
     } catch (err) {
       if (err instanceof ConnectionError) {
-        return sendError(res, 500, 'Error de conexion')
+        return sendError({ res, message: 'Error al conectarse al servidor de la U' })
       }
-      return sendError(res, 500, 'Error inesperado')
+      return sendError({ res, message: 'Error interno en el servidor' })
     }
   }
 

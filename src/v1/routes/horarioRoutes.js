@@ -5,4 +5,4 @@ export const horarioRouter = Router()
 
 horarioRouter
   .post('/asignaturas', HorarioController.horarioAsignaturas)
-  .post('/asignaturasDia', HorarioController.horarioAsignaturasDia)
+  .post('/dias', HorarioController.horarioDias)

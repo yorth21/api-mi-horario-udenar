@@ -137,7 +137,7 @@ export function asignaturasScraping (text) {
   return result
 }
 
-export function asignaturasDiaScraping (text) {
+export function diasScraping (text) {
   const asignaturas = asignaturasScraping(text)
   const result = {
     nombreAlumno: asignaturas.nombreAlumno,
