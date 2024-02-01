@@ -11,11 +11,11 @@ export class HorarioController {
   static async horarioAsignaturas (req, res) {
     const { codAlumno } = req.body
     const { success } = validateCodAlumno(codAlumno)
-    if (!success) return sendError(res, 400, 'Formato de codigo incorrecto')
+    if (!success) return sendError({ res, code: 400, message: 'Formato de codigo incorrecto' })
 
     try {
       const codPeriodo = await HorarioController.getCodPeriodoAct(codAlumno)
-      if (!codPeriodo) return sendError(res, 404, 'Estudiante no encontrado')
+      if (!codPeriodo) return sendError({ res, code: 404, message: 'Estudiante no encontrado' })
 
       const formData = new FormData()
       formData.append('cod_alumno', codAlumno)
@@ -23,8 +23,8 @@ export class HorarioController {
 
       const resReporte = await reporteModel.getReportePdf({ formData })
       const pdf = await pdfParse(resReporte)
-      if (!pdf) return sendError(res, 500, 'Error al obtener el horario')
-      if (pdf.text.trim() === '') return sendError(res, 404, 'Horario no encontrado')
+      if (!pdf) return sendError({ res, message: 'Error al obtener el horario' })
+      if (pdf.text.trim() === '') return sendError({ res, code: 404, message: 'Horario no encontrado' })
       const asignaturas = asignaturasScraping(pdf.text)
       asignaturas.codAlumno = codAlumno
 
@@ -40,11 +40,11 @@ export class HorarioController {
   static async horarioDias (req, res) {
     const { codAlumno } = req.body
     const { success } = validateCodAlumno(codAlumno)
-    if (!success) return sendError(res, 400, 'Formato de codigo incorrecto')
+    if (!success) return sendError({ res, code: 400, message: 'Formato de codigo incorrecto' })
 
     try {
       const codPeriodo = await HorarioController.getCodPeriodoAct(codAlumno)
-      if (!codPeriodo) return sendError(res, 404, 'Estudiante no encontrado')
+      if (!codPeriodo) return sendError({ res, code: 404, message: 'Estudiante no encontrado' })
 
       const formData = new FormData()
       formData.append('cod_alumno', codAlumno)
@@ -52,8 +52,8 @@ export class HorarioController {
 
       const resReporte = await reporteModel.getReportePdf({ formData })
       const pdf = await pdfParse(resReporte)
-      if (!pdf) return sendError(res, 500, 'Error al obtener el horario')
-      if (pdf.text.trim() === '') return sendError(res, 404, 'Horario no encontrado')
+      if (!pdf) return sendError({ res, message: 'Error al obtener el horario' })
+      if (pdf.text.trim() === '') return sendError({ res, code: 404, message: 'Horario no encontrado' })
       const asignaturas = diasScraping(pdf.text)
       asignaturas.codAlumno = codAlumno
 
