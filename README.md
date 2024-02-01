@@ -7,7 +7,6 @@ Esta API ha sido desarrollada con el propósito de realizar web scraping en la a
 1. [Requisitos](#requisitos)
 2. [Instalación y ejecución](#instalación)
 3. [Endpoints](#endpoints)
-4. [Ejemplos](#ejemplos)
 
 
 ## Requisitos
@@ -41,94 +40,78 @@ Para instalar y ejecutar esta API sigue estos pasos:
 	```
 
 ## Endpoints
-### Codigo reporte actual
-
+### Horario por asignaturas
 ```
 POST	/api/v1/horario/asignaturas
 
 {
 	"codAlumno": 123456789
 }
-
-200
-"success": true,
-"message": "Código de reporte obtenido",
-"data": {
-	"codAlumno": "123456789",
-	"codReporte": "123"
+```
+#### Success:
+```
+{
+    "nombreAlumno": "NOMBRES APELLIDOS",
+    "asignaturas": [
+        {
+            "nombre": "SISTEMAS BASADOS EN EL CONOCIMIENTO",
+            "categoria": "Pensum",
+            "tipo": "Teórica",
+            "horario": [
+                {
+                    "dia": "martes",
+                    "codDia": "MAR",
+                    "horaInicio": 7,
+                    "horaFin": 9,
+                    "ubicacion": "A101-BLOQUE 6 INGENIERIA"
+                }
+            ]
+        },
+	...
+    ],
+    "codAlumno": 123456789
 }
-
-codigo ok: 200
-"success": true,
-"message": "Mensaje",
-"data": {
-	"nombreAlumno": "Nombre",
-	"asignaturas": [
-		{
-			"nombre": "METODOS NUMERICOS",
-			"categoria": "Flexibilidad",
-			"tipo": "Teórica",
-			"horario": [
-				{
-					"dia": "lunes",
-					"codDia": "LUN",
-					"horaInicio": 11,
-					"horaFin": 13,
-					"ubicacion": "A407-BLOQUE TECNOLOGICO"
-				},
-				{
-					"dia": "miercoles",
-					"codDia": "MIE",
-					"horaInicio": 11,
-					"horaFin": 13,
-					"ubicacion": "A409-BLOQUE TECNOLOGICO"
-				}
-			]
-		}
-		// ....
-	]
-}
-
-codigo error: 
-"success": false,
-"error": {
-	"message": "Descripcion corta del error",
-	"details": "Detalles del error"
+```
+#### Error:
+```
+{
+    "message": "Estudiante no encontrado",
+    "details": null
 }
 ```
 
-### Informacion del horario
+### Horario por dias
 ```
-POST	/api/v1/horario/asignaturasDia
+POST	/api/v1/horario/dias
 
 {
 	"codAlumno": 123456789
 }
-
-codigo ok: 200
-"success": true,
-"message": "Mensaje",
-"data": {
-	"nombreAlumno": "Nombre",
-	"asignaturas": [
-		{
-			"dia": "lunes",
-			"codDia": "LUN",
-			"horaInicio": 11,
-			"horaFin": 13,
-			"ubicacion": "A407-BLOQUE TECNOLOGICO",
-			"nombre": "METODOS NUMERICOS",
-			"categoria": "Flexibilidad",
-			"tipo": "Teórica"
-		}
-		// .....
-	]
+```
+#### Success:
+```
+{
+    "nombreAlumno": "NOMBRES APELLIDOS",
+    "asignaturas": [
+        {
+            "dia": "lunes",
+            "codDia": "LUN",
+            "horaInicio": 11,
+            "horaFin": 13,
+            "ubicacion": "A407-BLOQUE TECNOLOGICO",
+            "nombre": "METODOS NUMERICOS",
+            "categoria": "Flexibilidad",
+            "tipo": "Teórica"
+        },
+        ...
+    ],
+    "codAlumno": 123456789
 }
-
-codigo error: 
-"success": false,
-"error": {
-	"message": "Descripcion corta del error",
-	"details": "Detalles del error"
+```
+#### Error:
+```
+{
+    "message": "Estudiante no encontrado",
+    "details": null
 }
 ```
