@@ -40,6 +40,9 @@ Para instalar y ejecutar esta API sigue estos pasos:
 	```
 
 ## Endpoints
+
+Url API para que pruebes los enpoints: ``` https://api-mi-horario-udenar.up.railway.app/api/v1 ```
+
 ### Horario por asignaturas
 ```
 POST	/api/v1/horario/asignaturas
