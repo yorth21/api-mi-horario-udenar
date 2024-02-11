@@ -95,8 +95,8 @@ export function asignaturasScraping (text) {
     const materia = fullNombreMateria.split('-')[0].split('(')[0].trim()
 
     const tipos = {
-      TEORICA: 'Teórica',
-      PRACTICA: 'Práctica'
+      TEORICA: 'Teorica',
+      PRACTICA: 'Practica'
     }
 
     let tipo = 'Otro'
@@ -110,7 +110,7 @@ export function asignaturasScraping (text) {
     const categorias = {
       PENSUM: 'Pensum',
       FLEXIBILIDAD: 'Flexibilidad',
-      HUMANISTICA: 'Humanística'
+      HUMANISTICA: 'Humanistica'
     }
 
     let categoria = 'Electiva'
