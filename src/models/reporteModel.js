@@ -9,7 +9,7 @@ const api = axios.create({
 export class reporteModel {
   static async getReportePdf ({ formData }) {
     try {
-      const { data } = await api.post('/reporte2021prueba.php', formData, {
+      const { data } = await api.post('/reporte2024prueba.php', formData, {
         header: {
           'Content-Type': 'multipart/form-data'
         },

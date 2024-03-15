@@ -8,18 +8,17 @@ import { reporteModel } from '../models/reporteModel.js'
 import { ConnectionError } from '../utils/errors.js'
 
 export class HorarioController {
+  static COD_PERIODO = '150'
+
   static async horarioAsignaturas (req, res) {
     const { codAlumno } = req.body
     const { success } = validateCodAlumno(codAlumno)
     if (!success) return sendError({ res, code: 400, message: 'Formato de codigo incorrecto' })
 
     try {
-      const codPeriodo = await HorarioController.getCodPeriodoAct(codAlumno)
-      if (!codPeriodo) return sendError({ res, code: 404, message: 'Estudiante no encontrado' })
-
       const formData = new FormData()
       formData.append('cod_alumno', codAlumno)
-      formData.append('reporte', codPeriodo)
+      formData.append('reporte', HorarioController.COD_PERIODO)
 
       const resReporte = await reporteModel.getReportePdf({ formData })
       const pdf = await pdfParse(resReporte)
@@ -43,12 +42,9 @@ export class HorarioController {
     if (!success) return sendError({ res, code: 400, message: 'Formato de codigo incorrecto' })
 
     try {
-      const codPeriodo = await HorarioController.getCodPeriodoAct(codAlumno)
-      if (!codPeriodo) return sendError({ res, code: 404, message: 'Estudiante no encontrado' })
-
       const formData = new FormData()
       formData.append('cod_alumno', codAlumno)
-      formData.append('reporte', codPeriodo)
+      formData.append('reporte', HorarioController.COD_PERIODO)
 
       const resReporte = await reporteModel.getReportePdf({ formData })
       const pdf = await pdfParse(resReporte)
@@ -66,6 +62,7 @@ export class HorarioController {
     }
   }
 
+  // function deprecated
   static async getCodPeriodoAct (codAlumno) {
     const formData = new FormData()
     formData.append('theInput', codAlumno)
